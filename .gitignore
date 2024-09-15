@@ -1,0 +1,5 @@
+*.tgz
+cockroach-v24.1.4.linux-amd64
+cockroach-data
+tmp
+.idea
