@@ -7,6 +7,9 @@ startdev:
 startdb:
 	./cockroach-v24.1.4.linux-amd64/cockroach start-single-node --insecure=true
 
+sql:
+	./cockroach-v24.1.4.linux-amd64/cockroach sql --insecure=true
+
 setup:
 	wget https://binaries.cockroachdb.com/cockroach-v24.1.4.linux-amd64.tgz
 	tar xvfz cockroach-v24.1.4.linux-amd64.tgz
