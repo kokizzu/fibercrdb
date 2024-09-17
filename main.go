@@ -10,6 +10,8 @@ import (
 	"fibercockroach/model"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/jackc/pgx/v5/stdlib"
@@ -57,6 +59,8 @@ func main() {
 	app := fiber.New(fiber.Config{
 		Immutable: true,
 	})
+	app.Use(recover.New())
+	app.Use(logger.New())
 
 	ctr := controller.Controller{
 		Pool: pool,
