@@ -1,8 +1,11 @@
+GO ?= go
+GOVULNCHECK ?= govulncheck
+CMD ?=
 
-.PHONY: test verify-dependency-security
+.PHONY: test verify-dependency-security run vulncheck
 
 test:
-	go test ./...
+	$(GO) test ./...
 
 verify-dependency-security:
 	bash scripts/verify-dependency-security.sh
@@ -21,5 +24,12 @@ sql:
 setup:
 	wget https://binaries.cockroachdb.com/cockroach-v24.1.4.linux-amd64.tgz
 	tar xvfz cockroach-v24.1.4.linux-amd64.tgz
-	go install github.com/pressly/goose/v3/cmd/goose@latest
-	go install github.com/air-verse/air@latest
+	$(GO) install github.com/pressly/goose/v3/cmd/goose@latest
+	$(GO) install github.com/air-verse/air@latest
+
+vulncheck:
+	$(GOVULNCHECK) ./...
+
+run:
+	@test -n "$(CMD)" || (echo "usage: make run CMD='go test ./...'" >&2; exit 2)
+	$(CMD)
